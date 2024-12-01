@@ -15,6 +15,7 @@ Topologi
 
 ## Tree
 
+![Ttreee](https://github.com/user-attachments/assets/e314edb3-88aa-4c9d-ab54-223b4666aaae)
 
 
 NewEridu 
