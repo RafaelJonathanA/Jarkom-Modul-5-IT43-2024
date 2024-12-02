@@ -489,14 +489,16 @@ nmap -p 1-100 192.238.1.194
 
 7. Hanya bisa 2 Ip berbeda
 
+```
 iptables -A INPUT -p tcp --dport 80 -m conntrack --ctstate NEW -m recent --set
 iptables -A INPUT -p tcp --dport 80 -m conntrack --ctstate NEW -m recent --update --seconds 1 --hitcount 3 -j REJECT
 iptables -A INPUT -p tcp --dport 80 -j ACCEPT
+```
 
 Pengujian 
-
+```
 parallel curl -s http://192.238.1.226 ::: 192.238.1.2 192.238.1.3 192.238.0.2 192.238.0.3
-
+```
 8. 
 
 
