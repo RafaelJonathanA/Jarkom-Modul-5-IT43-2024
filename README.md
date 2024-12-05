@@ -7,6 +7,9 @@
 | Rafael Jonathan Arnoldus          | 5027231006 | 
 | Gandhi Ert Julio                  | 5027231081 |
 
+## Revisi
+link video: https://youtu.be/KdRSZxpVnFo 
+
 ## Topologi
 
 Topologi 
@@ -439,12 +442,10 @@ Ellen,Lycoan,Jane,Policeboo
 ```
 # Akses Node Ellen dan Lycaon (08:00 - 21:00)
 iptables -A INPUT -p tcp -s 192.238.1.2 --dport 80 -m time --timestart 08:00 --timestop 21:00 --weekdays Mon,Tue,Wed,Thu,Fri,Sat,Sun -j ACCEPT
-
 iptables -A INPUT -p tcp -s 192.238.1.3 --dport 80 -m time --timestart 08:00 --timestop 21:00 --weekdays Mon,Tue,Wed,Thu,Fri,Sat,Sun -j ACCEPT
 
 # Akses Node Jane dan Policeboo (03:00 - 23:00)
 iptables -A INPUT -p tcp -s 192.238.0.2 --dport 80 -m time --timestart 03:00 --timestop 23:00 --weekdays Mon,Tue,Wed,Thu,Fri,Sat,Sun -j ACCEPT
-
 iptables -A INPUT -p tcp -s 192.238.0.3 --dport 80 -m time --timestart 03:00 --timestop 23:00 --weekdays Mon,Tue,Wed,Thu,Fri,Sat,Sun -j ACCEPT
 
 # Tolak semua koneksi lainnya
@@ -499,8 +500,6 @@ Pengujian
 ```
 parallel curl -s http://192.238.1.226 ::: 192.238.1.2 192.238.1.3 192.238.0.2 192.238.0.3
 ```
-8. 
-
 
 Soal 3 
 
@@ -516,5 +515,24 @@ Pengujian Ping
 
 ![image](https://github.com/user-attachments/assets/8c4261fc-7468-4059-808f-994f9f6edbbd) 
 
-Pengujian NC 
+
+## Revisi 
+
+8. Mengalihkan paket yang diterima oleh burnice kepada hollowzero 
+
+#Burnice
+iptables -t nat -A PREROUTING -p tcp -j DNAT --to-destination 192.238.1.226 --dport 8080
+iptables -A FORWARD -p tcp -d 192.238.1.226 -j ACCEPT
+
+Pengujian 
+#Hollowzero
+tcpdump -i eth0 host 192.246.2.211 and port 8080
+
+#Fairy
+nc 192.238.1.130 1234
+
+hasil pengujian :
+![image](https://github.com/user-attachments/assets/e09b77dd-1474-4fc5-bca1-af3ee0a6e172)
+
+
 
